@@ -1,0 +1,25 @@
+authentication:
+  type: APIKey
+  location: header
+  header_name: X-API-Key
+  required: true
+
+authorization:
+  roles:
+    - name: admin
+      permissions:
+       - redact_text
+       - view_logs
+       - manage_users
+    - name: user
+      permissions:
+        - redact_text
+
+rate_limiting:
+  enabled: true
+  requests_per_minute: 60
+  block_duration_minutes: 15
+
+logging:
+  access_log: true
+  failed_attempts_log: true

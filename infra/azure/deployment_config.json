@@ -1,0 +1,32 @@
+{
+    "resourceGroup": "neurosentinel-rg",
+    "location": "eastus",
+    "appServicePlan": {
+      "name": "neurosentinel-plan",
+      "sku": {
+        "name": "B1",
+        "tier": "Basic",
+        "capacity": 1
+      }
+    },
+    "webApp": {
+      "name": "neurosentinel-app",
+      "docker": {
+        "image": "yourdockerhubusername/neurosentinel:latest",
+        "port": 8000
+      },
+      "appSettings": {
+        "ENVIRONMENT": "Production",
+        "PORT": "8000"
+      }
+    },
+    "keyVault": {
+      "name": "neurosentinel-kv"
+    },
+    "containerRegistry": {
+      "name": "neurosentinelacr",
+      "sku": "Basic",
+      "adminUserEnabled": true
+    }
+  }
+  

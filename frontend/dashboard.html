@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NeuroSentinel Redaction Dashboard</title> 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        textarea, input[type="submit"] {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+        #result {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+    <form id="redact-form">
+        <label for="inputText">Enter text for redaction:</label>
+        <textarea id="inputText" rows="6" placeholder="Type or paste text here..."></textarea>
+        <input type="submit" value=""redact">
+    </form>
+
+<div id="result"></div>
+
+<script>
+    const form = document.getElementById("redact-form");
+    const resultDiv = document.getElementById("result");
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const inputText = document.getElementById("inputText").value;
+
+        const response = await fetch("http://localhost:8000/redact", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ text: inputText})
+        });
+
+        const data = await response.json();
+
+        resultDiv.innerHTML = '<strong>Redacted Text:</strong><br>${data.redacted_text}';
+    });
+    </script>
+
+</body>
+</html>
